@@ -1,0 +1,15 @@
+(library
+  (name hello)
+  (modules hello)
+  (public_name hello))
+
+(executable
+  (name world)
+  (modules world)
+  (libraries hello)
+  (public_name world))
+
+(test
+  (modules test)
+  (libraries alcotest hello)
+  (name test))

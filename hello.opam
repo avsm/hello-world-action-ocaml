@@ -1,0 +1,23 @@
+opam-version: "2.0"
+maintainer: "anil@recoil.org"
+authors: [ "Anil Madhavapeddy" ]
+synopsis: "A hello world example"
+description: """
+Hello, World!
+"""
+license: "ISC"
+tags: []
+homepage: "https://github.com/avsm/setup-ocaml"
+doc: "https://avsm.github.io/setup-ocaml"
+bug-reports: "https://github.com/avsm/setup-ocaml"
+depends: [
+  "ocaml" {>= "4.02.3"}
+  "dune"
+  "alcotest" {with-test}
+]
+build: [
+  ["dune" "subst"] {pinned}
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+dev-repo: "git+https://github.com/avsm/setup-ocaml"
