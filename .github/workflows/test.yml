@@ -7,11 +7,14 @@ jobs:
     strategy:
       matrix:
         operating-system: [macos-latest, ubuntu-latest, windows-latest]
+        ocaml-version: [ '4.09.0', '4.08.1' ]
     steps:
     - uses: actions/checkout@master
     - uses: avsm/setup-ocaml@master
       with:
-        ocaml-version: '4.08.1'
+        ocaml-version: ${{ matrix.ocaml-version }}
+    - run: opam pin add hello.dev -n .
+    - run: opam depext -yt hello
     - run: opam install -t . --deps-only
     - run: opam exec -- dune build
     - run: opam exec -- dune runtest
