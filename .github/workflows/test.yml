@@ -15,7 +15,7 @@ jobs:
         ocaml-version: ${{ matrix.ocaml-version }}
     - run: opam pin add hello.dev -n .
     - run: opam depext -yt hello
-    - run: run: opam install -t . --deps-only
+    - run: opam install -t . --deps-only
     - run: opam exec -- dune build
     - run: opam exec -- dune runtest
     - uses: actions/upload-artifact@master
