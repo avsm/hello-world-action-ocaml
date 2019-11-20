@@ -18,3 +18,8 @@ jobs:
     - run: opam install -t . --deps-only
     - run: opam exec -- dune build
     - run: opam exec -- dune runtest
+    - uses: actions/upload-artifact@master
+      with:
+        name: hello-world-${{ matrix.operating-system }}-ocaml-${{ matrix.ocaml-version }}
+        path: _build/default/world.exe
+
