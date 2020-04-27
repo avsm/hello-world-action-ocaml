@@ -1,27 +1,46 @@
 name: Build Hello World executable
-on: [push, pull_request]
+
+on:
+  - push
+  - pull_request
+
 jobs:
-  run:
+  build:
     name: Build
-    runs-on: ${{ matrix.os }}
+
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-        ocaml-version: ["4.09.0", "4.08.1"]
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+        ocaml-version:
+          - 4.09.0
+          - 4.08.1
+
+    runs-on: ${{ matrix.os }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Use OCaml ${{ matrix.ocaml-version }}
         uses: avsm/setup-ocaml@v1
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
+
       - run: opam pin add hello.dev -n .
+
       - run: opam depext -yt hello
+
       - run: opam install -t . --deps-only
+
       - run: opam exec -- dune build
+
       - run: opam exec -- dune runtest
-      - uses: actions/upload-artifact@master
+
+      - uses: actions/upload-artifact@v1
         with:
-          name: ${{ matrix.operating-system }}-${{ matrix.ocaml-version }}-world.exe
+          name: ${{ matrix.os }}-${{ matrix.ocaml-version }}-world.exe
           path: _build/default/world.exe
