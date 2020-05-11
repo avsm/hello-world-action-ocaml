@@ -3,8 +3,4 @@ let test_hello () =
 
 let () =
   let open Alcotest in
-  run "Hello" [
-      "World", [
-          test_case "Equal" `Quick test_hello;
-    ]
-  ]
+  run "Hello" [ ("World", [ test_case "Equal" `Quick test_hello ]) ]
