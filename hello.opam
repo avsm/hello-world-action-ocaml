@@ -2,8 +2,12 @@
 opam-version: "2.0"
 synopsis: "A hello world example"
 description: "Hello, World!"
-maintainer: ["Anil Madhavapeddy <anil@recoil.org>"]
-authors: ["Anil Madhavapeddy <anil@recoil.org>"]
+maintainer: [
+  "Anil Madhavapeddy <anil@recoil.org>" "Sora Morimoto <sora@morimoto.io>"
+]
+authors: [
+  "Anil Madhavapeddy <anil@recoil.org>" "Sora Morimoto <sora@morimoto.io>"
+]
 license: "ISC"
 homepage: "https://github.com/avsm/hello-world-action-ocaml"
 doc: "https://github.com/avsm/hello-world-action-ocaml"
@@ -11,10 +15,11 @@ bug-reports: "https://github.com/avsm/hello-world-action-ocaml/issues"
 depends: [
   "alcotest" {with-test}
   "ocaml" {>= "4.02.3"}
-  "dune"
+  "dune" {>= "2.7"}
+  "odoc" {with-doc}
 ]
 build: [
-  ["dune" "subst"] {pinned}
+  ["dune" "subst"] {dev}
   [
     "dune"
     "build"
