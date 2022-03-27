@@ -15,7 +15,7 @@ bug-reports: "https://github.com/avsm/hello-world-action-ocaml/issues"
 depends: [
   "alcotest" {with-test}
   "ocaml" {>= "4.02.3"}
-  "dune" {>= "2.7"}
+  "dune" {>= "3.0"}
   "odoc" {with-doc}
 ]
 build: [
