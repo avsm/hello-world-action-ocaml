@@ -1,4 +1,4 @@
-name: Main workflow
+name: Builds, tests & co
 
 on:
   - pull_request
@@ -14,59 +14,55 @@ jobs:
           - ubuntu-latest
           - windows-latest
         ocaml-compiler:
-          - 4.13.x
-          - 4.08.x
-          - 4.06.x
+          - "4.14"
+          - "4.08"
+          - "4.06"
 
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout tree
+        uses: actions/checkout@v4
 
-      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+      - name: Set-up OCaml
         uses: ocaml/setup-ocaml@v2
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
-      - run: opam install . --deps-only --with-doc --with-test
+      - run: opam install . --deps-only --with-test
 
       - run: opam exec -- dune build
 
       - run: opam exec -- dune runtest
 
       - name: Upload the build artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.os }}-${{ matrix.ocaml-version }}-world.exe
+          name: ${{ matrix.os }}-${{ matrix.ocaml-compiler }}-world.exe
           path: _build/default/world.exe
 
   lint-doc:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout tree
+        uses: actions/checkout@v4
 
-      - name: Use OCaml 4.13.x
+      - name: Set-up OCaml
         uses: ocaml/setup-ocaml@v2
         with:
-          ocaml-compiler: 4.13.x
-          dune-cache: true
+          ocaml-compiler: "4.14"
 
-      - name: Lint doc
-        uses: ocaml/setup-ocaml/lint-doc@v2
+      - uses: ocaml/setup-ocaml/lint-doc@v2
 
   lint-fmt:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout tree
+        uses: actions/checkout@v4
 
-      - name: Use OCaml 4.13.x
+      - name: Set-up OCaml
         uses: ocaml/setup-ocaml@v2
         with:
-          ocaml-compiler: 4.13.x
-          dune-cache: true
+          ocaml-compiler: "4.14"
 
-      - name: Lint fmt
-        uses: ocaml/setup-ocaml/lint-fmt@v2
+      - uses: ocaml/setup-ocaml/lint-fmt@v2

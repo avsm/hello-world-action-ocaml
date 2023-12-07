@@ -1,0 +1,32 @@
+name: Opam Dependency Submission
+
+on:
+  - push
+
+concurrency:
+  group: opam-dependency-submission
+  cancel-in-progress: true
+
+permissions: read-all
+
+jobs:
+  opam-dependency-submission:
+    name: Opam Dependency Submission
+
+    permissions:
+      contents: write
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout tree
+        uses: actions/checkout@v4
+
+      - name: Set-up OCaml
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: "4.14"
+          allow-prerelease-opam: true
+
+      - name: Opam Dependency Submission
+        uses: ocaml/setup-ocaml/analysis@analysis

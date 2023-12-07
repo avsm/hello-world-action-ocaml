@@ -6,11 +6,13 @@
 
 (license ISC)
 
-(authors "Anil Madhavapeddy <anil@recoil.org>"
-  "Sora Morimoto <sora@morimoto.io>")
+(authors
+ "Anil Madhavapeddy <anil@recoil.org>"
+ "Sora Morimoto <sora@morimoto.io>")
 
-(maintainers "Anil Madhavapeddy <anil@recoil.org>"
-  "Sora Morimoto <sora@morimoto.io>")
+(maintainers
+ "Anil Madhavapeddy <anil@recoil.org>"
+ "Sora Morimoto <sora@morimoto.io>")
 
 (source
  (github avsm/hello-world-action-ocaml))
