@@ -25,7 +25,7 @@ jobs:
       - name: Set-up OCaml
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: "4.14"
+          ocaml-compiler: "5.2"
 
       - name: Opam Dependency Submission
         uses: ocaml/setup-ocaml/analysis@v3
