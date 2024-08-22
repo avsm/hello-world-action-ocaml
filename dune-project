@@ -29,6 +29,8 @@
  (description "Hello, World!")
  (depends
   (alcotest :with-test)
-  (ocaml
-   (>= 4.02.3))
-  dune))
+  (ocamlformat
+   (and
+    (= 0.26.2)
+    :with-dev-setup))
+  (ocaml-lsp-server :with-dev-setup)))

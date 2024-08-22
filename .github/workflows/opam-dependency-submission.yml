@@ -1,7 +1,9 @@
 name: Opam Dependency Submission
 
 on:
-  - push
+  push:
+    branches:
+      - master
 
 concurrency:
   group: opam-dependency-submission
@@ -11,21 +13,14 @@ permissions: read-all
 
 jobs:
   opam-dependency-submission:
-    name: Opam Dependency Submission
-
     permissions:
       contents: write
-
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout tree
         uses: actions/checkout@v4
-
       - name: Set-up OCaml
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: "5.2"
-
-      - name: Opam Dependency Submission
-        uses: ocaml/setup-ocaml/analysis@v3
+          ocaml-compiler: 5
+      - uses: ocaml/setup-ocaml/analysis@v3

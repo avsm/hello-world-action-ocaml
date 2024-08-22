@@ -13,9 +13,10 @@ homepage: "https://github.com/avsm/hello-world-action-ocaml"
 doc: "https://github.com/avsm/hello-world-action-ocaml"
 bug-reports: "https://github.com/avsm/hello-world-action-ocaml/issues"
 depends: [
-  "alcotest" {with-test}
-  "ocaml" {>= "4.02.3"}
   "dune" {>= "3.0"}
+  "alcotest" {with-test}
+  "ocamlformat" {= "0.26.2" & with-dev-setup}
+  "ocaml-lsp-server" {with-dev-setup}
   "odoc" {with-doc}
 ]
 build: [

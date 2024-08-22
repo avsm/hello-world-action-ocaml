@@ -4,8 +4,15 @@ on:
   - push
   - pull_request
 
+permissions: read-all
+
 jobs:
   build-and-test:
+    permissions:
+      attestations: write
+      contents: read
+      id-token: write
+
     strategy:
       fail-fast: false
       matrix:
@@ -14,8 +21,8 @@ jobs:
           - macos-latest
           - windows-latest
         ocaml-compiler:
-          - "5.2"
-          - "4.14"
+          - 5
+          - 4
 
     runs-on: ${{ matrix.os }}
 
@@ -34,6 +41,11 @@ jobs:
 
       - run: opam exec -- dune runtest
 
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: _build/default/world.exe
+
       - name: Upload the build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -45,12 +57,10 @@ jobs:
     steps:
       - name: Checkout tree
         uses: actions/checkout@v4
-
       - name: Set-up OCaml
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: "5.2"
-
+          ocaml-compiler: 5
       - uses: ocaml/setup-ocaml/lint-doc@v3
 
   lint-fmt:
@@ -58,10 +68,19 @@ jobs:
     steps:
       - name: Checkout tree
         uses: actions/checkout@v4
-
       - name: Set-up OCaml
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: "5.2"
-
+          ocaml-compiler: 5
       - uses: ocaml/setup-ocaml/lint-fmt@v3
+
+  lint-opam:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tree
+        uses: actions/checkout@v4
+      - name: Set-up OCaml
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: 5
+      - uses: ocaml/setup-ocaml/lint-opam@v3
