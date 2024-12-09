@@ -42,7 +42,7 @@ jobs:
       - run: opam exec -- dune runtest
 
       - name: Generate artifact attestation
-        uses: actions/attest-build-provenance@v1
+        uses: actions/attest-build-provenance@v2
         with:
           subject-path: _build/default/world.exe
 
