@@ -10,7 +10,6 @@ jobs:
   build-and-test:
     permissions:
       attestations: write
-      contents: read
       id-token: write
 
     strategy:
