@@ -46,7 +46,7 @@ jobs:
           subject-path: _build/default/world.exe
 
       - name: Upload the build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{ matrix.os }}-${{ matrix.ocaml-compiler }}-world.exe
           path: _build/default/world.exe
